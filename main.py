@@ -12,7 +12,7 @@ import sys
 
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-    QPushButton, QLabel, QMessageBox
+    QPushButton, QLabel, QMessageBox, QComboBox
 )
 
 import backend_inprocess
@@ -39,14 +39,26 @@ class MainWindow(QMainWindow):
         v.addWidget(self.link); v.addWidget(self.mode); v.addWidget(self.alt)
         row = QHBoxLayout()
         for text, fn in [("Connect", self._open_connect),
-                         ("GUIDED", lambda: self.drone.set_mode("GUIDED")),
                          ("Arm", lambda: self.drone.arm(True)),
-                         ("Takeoff 20m", lambda: self.drone.takeoff(20)),
-                         ("RTL", self.drone.rtl)]:
+                         ("Takeoff 20m", lambda: self.drone.takeoff(20))]:
             b = QPushButton(text); b.clicked.connect(fn); row.addWidget(b)
         v.addLayout(row)
+
+        mode_row = QHBoxLayout()
+        mode_row.addWidget(QLabel("Set Mode:"))
+        self.mode_combo = QComboBox()
+        self.mode_combo.addItems([
+            "MANUAL", "STABILIZE", "CRUISE", "FBWA", "FBWB",
+            "QSTABILIZE", "QHOVER", "QLOITER", "QLAND", "QRTL", "GUIDED", "AUTO", "RTL"
+        ])
+        mode_row.addWidget(self.mode_combo)
+        mode_btn = QPushButton("Apply")
+        mode_btn.clicked.connect(lambda: self.drone.set_mode(self.mode_combo.currentText()))
+        mode_row.addWidget(mode_btn)
+        v.addLayout(mode_row)
+
         self.status = QLabel(""); v.addWidget(self.status)
-        self.setCentralWidget(root); self.resize(440, 220)
+        self.setCentralWidget(root); self.resize(460, 260)
 
     def _open_connect(self):
         ConnectDialog(self.drone, self).exec()
