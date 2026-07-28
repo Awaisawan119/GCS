@@ -148,10 +148,24 @@
   <section>
     <h2>Flight commands — every result is the drone's real answer</h2>
     <div class="row">
-      <button onclick="cmd('MODE GUIDED','/command/mode',{mode:'GUIDED'})">Mode GUIDED</button>
       <button class="arm" onclick="cmd('ARM','/command/arm',{arm:true})">Arm</button>
       <button onclick="cmd('DISARM','/command/arm',{arm:false})">Disarm</button>
       <button class="danger" onclick="cmd('RTL','/command/rtl')">RTL</button>
+    </div>
+    <div class="row">
+      <button onclick="cmd('MODE MANUAL','/command/mode',{mode:'MANUAL'})">Manual</button>
+      <button onclick="cmd('MODE STABILIZE','/command/mode',{mode:'STABILIZE'})">Stabilize</button>
+      <button onclick="cmd('MODE CRUISE','/command/mode',{mode:'CRUISE'})">Cruise</button>
+      <button onclick="cmd('MODE FBWA','/command/mode',{mode:'FBWA'})">FBWA</button>
+      <button onclick="cmd('MODE FBWB','/command/mode',{mode:'FBWB'})">FBWB</button>
+    </div>
+    <div class="row">
+      <button onclick="cmd('MODE QSTABILIZE','/command/mode',{mode:'QSTABILIZE'})">QStabilize</button>
+      <button onclick="cmd('MODE QHOVER','/command/mode',{mode:'QHOVER'})">QHover</button>
+      <button onclick="cmd('MODE QLOITER','/command/mode',{mode:'QLOITER'})">QLoiter</button>
+      <button onclick="cmd('MODE QLAND','/command/mode',{mode:'QLAND'})">QLand</button>
+      <button onclick="cmd('MODE QRTL','/command/mode',{mode:'QRTL'})">QRTL</button>
+      <button onclick="cmd('MODE GUIDED','/command/mode',{mode:'GUIDED'})">Guided</button>
     </div>
     <div class="row">
       <input id="toAlt" value="20" aria-label="takeoff altitude">
