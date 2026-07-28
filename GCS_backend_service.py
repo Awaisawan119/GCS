@@ -1338,6 +1338,7 @@ async def ws_telemetry(ws: WebSocket):
     # backfill recent events so a (re)connecting client sees context
     for evt in bridge.events_since(0)[-20:]:
         last_seq = evt["seq"]
+        await ws.send_json({"type": "event", **evt})
     try:
         while True:
             for evt in bridge.events_since(last_seq):
